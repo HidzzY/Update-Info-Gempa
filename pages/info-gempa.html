@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)" />
+    
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <title>Detail Gempa | Info Gempa</title>
+    <meta name="description" content="Detail informasi gempa bumi" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <div id="loading" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="ios-header ios-header-compact">
+        <div class="header-content">
+            <a href="dash.html" class="ios-back-btn">
+                <i class="fas fa-chevron-left"></i>
+                <span>Kembali</span>
+            </a>
+            <h1 class="ios-nav-title">  </h1>
+            <div class="ios-spacer"></div>
+            
+            <button id="theme-toggle" class="ios-icon-btn" aria-label="Toggle theme">
+              <div id="themeIcon">
+                <i class="fas fa-sun"></i>
+                </div></button>
+        </div>
+    </header>
+
+    <main class="ios-container ios-container-detail">
+        
+        <!-- Map -->
+        <div class="ios-map-container">
+            <div id="map" class="ios-map"></div>
+            <div class="ios-map-overlay">
+                <div class="ios-pill">
+                    <i class="fas fa-location-dot"></i>
+                    <span id="map-coords">Memuat...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Content -->
+        <div id="quake-detail-container" class="ios-detail-content">
+            <!-- Injected by JS -->
+        </div>
+
+        <!-- Action Section -->
+        <div class="ios-action-section">
+            <h3>Bagikan Informasi</h3>
+            <div class="ios-button-group">
+                <button id="generate-info-btn" class="ios-button ios-button-primary">
+                    <i class="fas fa-file-lines"></i>
+                    <span>Buat Ringkasan</span>
+                </button>
+                <button id="share-btn" class="ios-button ios-button-secondary">
+                    <i class="fas fa-share"></i>
+                    <span>Bagikan</span>
+                </button>
+            </div>
+            
+            <div id="generated-text-output" class="ios-output-sheet" style="display: none;">
+                <div class="ios-sheet-handle"></div>
+                <textarea id="info-text-area" class="ios-textarea" readonly></textarea>
+                <button id="copy-text-btn" class="ios-button ios-button-primary ios-button-full">
+                    <i class="fas fa-copy"></i>
+                    <span>Salin ke Clipboard</span>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Toast -->
+    <div id="ios-toast" class="ios-toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="toast-message">Berhasil</span>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

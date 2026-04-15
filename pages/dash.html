@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)" />
+    
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Info Gempa" />
+    
+    <title>Pusat Info Gempa Indonesia</title>
+    <meta name="description" content="Informasi gempa bumi real-time dari BMKG Indonesia" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <!-- Live Activity Banner -->
+    <div id="live-activity" class="ios-live-activity" style="display: none;">
+        <div class="live-activity-content">
+            <div class="live-indicator">
+                <span class="pulse-dot"></span>
+                <span class="live-text">LIVE</span>
+            </div>
+            <div class="live-info">
+                <span class="live-mag" id="live-mag">0.0 M</span>
+                <span class="live-loc" id="live-loc">Memuat...</span>
+            </div>
+            <span class="live-time" id="live-time">Baru saja</span>
+        </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="loading" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="ios-header">
+        <div class="header-content">
+            <a href="../index.html" class="logo">
+                <img src="../assets/img/light.png" id="dash-logo" alt="Logo" style="height: 50px; width: auto; margin-right: 0px;">
+                <span>Info Gempa</span>
+            </a>
+            <button id="theme-toggle" class="ios-icon-btn" aria-label="Toggle theme">
+              <div id="themeIcon">
+                <i class="fas fa-sun"></i>
+                </div>
+            </button>
+        </div>
+    </header>
+
+    <main class="ios-container">
+        
+        <!-- Hero -->
+        <section class="ios-hero">
+            <h1 class="ios-hero-title">Gempa Terkini</h1>
+            <p class="ios-hero-subtitle">Data real-time BMKG Indonesia</p>
+        </section>
+
+        <!-- Stats Dashboard -->
+        <section class="ios-stats-section">
+            <div class="ios-stats-grid">
+                <div class="ios-stat-card">
+                    <div class="stat-icon" style="color: var(--ios-accent);">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-value" id="stat-total">-</div>
+                    <div class="stat-label">Total 24h</div>
+                </div>
+                <div class="ios-stat-card">
+                    <div class="stat-icon" style="color: var(--ios-orange);">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="stat-value" id="stat-max">-</div>
+                    <div class="stat-label">Terbesar</div>
+                </div>
+                <div class="ios-stat-card">
+                    <div class="stat-icon" style="color: var(--ios-green);">
+                        <i class="fas fa-map-location-dot"></i>
+                    </div>
+                    <div class="stat-value" id="stat-region">-</div>
+                    <div class="stat-label">Wilayah Aktif</div>
+                </div>
+                <div class="ios-stat-card">
+                    <div class="stat-icon" style="color: var(--ios-purple);">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="stat-value" id="stat-avg">-</div>
+                    <div class="stat-label">Rata-rata M</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mini Map -->
+        <section class="ios-section">
+            <div class="ios-section-header-static">
+                <h2>Peta Sebaran</h2>
+                <a href="#" class="ios-link" onclick="document.getElementById('latest-quake-content').scrollIntoView({behavior: 'smooth'}); return false;">Lihat Detail</a>
+            </div>
+            <div class="ios-mini-map-container">
+                <div id="mini-map" class="ios-mini-map"></div>
+                <div class="mini-map-overlay">
+                    <div class="ios-pill">
+                        <i class="fas fa-location-dot"></i>
+                        <span id="quake-count-map">Memuat...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Intensity Scale -->
+        <section class="ios-section">
+            <div class="ios-section-header-static">
+                <h2>Skala Intensitas</h2>
+            </div>
+            <div class="ios-intensity-scale">
+                <div class="intensity-item" data-level="I-II">
+                    <div class="intensity-color" style="background: #34C759;"></div>
+                    <span>Lemah</span>
+                </div>
+                <div class="intensity-item" data-level="III-IV">
+                    <div class="intensity-color" style="background: #FFCC00;"></div>
+                    <span>Ringan</span>
+                </div>
+                <div class="intensity-item" data-level="V-VI">
+                    <div class="intensity-color" style="background: #FF9500;"></div>
+                    <span>Sedang</span>
+                </div>
+                <div class="intensity-item" data-level="VII+">
+                    <div class="intensity-color" style="background: #FF3B30;"></div>
+                    <span>Kuat</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips Carousel -->
+        <section class="ios-section">
+            <div class="ios-section-header-static">
+                <h2>Tips Safety</h2>
+                <div class="carousel-dots" id="tips-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+            <div class="ios-tips-carousel" id="tips-carousel">
+                <div class="ios-tip-card active">
+                    <div class="tip-icon">🚨</div>
+                    <h3>Saat Gempa Terjadi</h3>
+                    <p>Tetap tenang, lindungi kepala, cari tempat berlindung di bawah meja yang kokoh.</p>
+                </div>
+                <div class="ios-tip-card">
+                    <div class="tip-icon">🚪</div>
+                    <h3>Evakuasi</h3>
+                    <p>Jangan gunakan lift. Gunakan tangga darurat. Bantu lansia & anak-anak.</p>
+                </div>
+                <div class="ios-tip-card">
+                    <div class="tip-icon">📱</div>
+                    <h3>Siapkan Emergency Kit</h3>
+                    <p>Simpan air, makanan, obat-obatan, dan power bank di tempat mudah dijangkau.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Activity Timeline -->
+        <section class="ios-section">
+            <div class="ios-section-header-static">
+                <h2>Aktivitas Terbaru</h2>
+            </div>
+            <div class="ios-timeline" id="activity-timeline">
+                <!-- Generated by JS -->
+            </div>
+        </section>
+
+        <!-- Search & Filter -->
+        <section class="ios-section">
+            <div class="ios-search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Cari wilayah..." />
+                <button class="ios-filter-btn" id="filter-btn">
+                    <i class="fas fa-sliders"></i>
+                </button>
+            </div>
+            <div class="ios-filter-panel" id="filter-panel" style="display: none;">
+                <div class="filter-group">
+                    <label>Magnitudo Minimal</label>
+                    <input type="range" id="mag-range" min="0" max="10" step="0.5" value="0">
+                    <span id="mag-value">0 M</span>
+                </div>
+                <div class="filter-group">
+                    <label>Wilayah</label>
+                    <select id="region-select">
+                        <option value="all">Semua Wilayah</option>
+                        <option value="Sumatera">Sumatera</option>
+                        <option value="Jawa">Jawa</option>
+                        <option value="Kalimantan">Kalimantan</option>
+                        <option value="Sulawesi">Sulawesi</option>
+                        <option value="Bali">Bali & Nusa Tenggara</option>
+                        <option value="Papua">Papua & Maluku</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured: Gempa Terbaru -->
+        <section class="ios-section">
+            <div class="ios-section-header" data-target="latest-quake-content">
+                <h2>Gempa Terbaru</h2>
+                <button class="ios-chevron active">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            <div id="latest-quake-content" class="ios-collapsible active">
+                <div id="latest-quake-card" class="ios-featured-card">
+                    <div class="ios-skeleton">
+                        <div class="skeleton-line skeleton-title"></div>
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line skeleton-short"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- List: Gempa Dirasakan -->
+        <section class="ios-section">
+            <div class="ios-section-header" data-target="felt-quakes-content">
+                <h2>Dirasakan</h2>
+                <span class="ios-badge" id="felt-badge">15</span>
+                <button class="ios-chevron">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            <div id="felt-quakes-content" class="ios-collapsible">
+                <div id="felt-quakes-list-container" class="ios-list">
+                    <div class="ios-skeleton">
+                        <div class="skeleton-item"></div>
+                        <div class="skeleton-item"></div>
+                        <div class="skeleton-item"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- List: Gempa Besar -->
+        <section class="ios-section">
+            <div class="ios-section-header" data-target="recent-major-quakes-content">
+                <h2>Magnitudo ≥ 5.0</h2>
+                <span class="ios-badge" id="major-badge">15</span>
+                <button class="ios-chevron">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            <div id="recent-major-quakes-content" class="ios-collapsible">
+                <div id="recent-major-quakes-list-container" class="ios-list">
+                    <div class="ios-skeleton">
+                        <div class="skeleton-item"></div>
+                        <div class="skeleton-item"></div>
+                        <div class="skeleton-item"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Emergency Simulation -->
+        <section class="ios-section">
+            <div class="ios-section-header-static">
+                <h2>Simulasi Darurat</h2>
+            </div>
+            <button class="ios-emergency-btn" id="emergency-sim-btn">
+                <div class="emergency-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="emergency-text">
+                    <span class="emergency-title">Uji Siren Gempa</span>
+                    <span class="emergency-subtitle">Ketuk untuk simulasi alarm</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </section>
+
+        <!-- Footer -->
+        <footer class="ios-footer">
+            <p>Sumber data: BMKG Indonesia</p>
+            <p class="ios-footer-update">Update: <span id="last-update">-</span></p>
+        </footer>
+
+    </main>
+
+    <!-- Toast -->
+    <div id="ios-toast" class="ios-toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="toast-message">Berhasil</span>
+        </div>
+    </div>
+
+    <!-- Emergency Modal -->
+    <div id="emergency-modal" class="ios-modal" style="display: none;">
+        <div class="ios-modal-backdrop"></div>
+        <div class="ios-modal-content">
+            <div class="emergency-animation">
+                <div class="siren-light"></div>
+                <i class="fas fa-bell fa-shake"></i>
+            </div>
+            <h2>🚨 SIMULASI ALARM</h2>
+            <p>Ini adalah simulasi. Pada kondisi nyata, segera evakuasi ke tempat aman!</p>
+            <button class="ios-button ios-button-primary ios-button-full" onclick="stopEmergency()">
+                Matikan Alarm
+            </button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
