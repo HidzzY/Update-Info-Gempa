@@ -806,7 +806,7 @@ document.addEventListener('DOMContentLoaded', () => {
 🗺️ Lokasi Peta: ${mapsUrl}
 
 Sumber: BMKG Indonesia
-https://live-update-gempa.vercel.app`;
+https://infogempa.hidz-fun.my.id`;
         };
         
         generateBtn?.addEventListener('click', () => {
