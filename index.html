@@ -1,13 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="google-site-verification" content="GpAqGbuZsOeTu3r56mJDddd0FB6GZIF2K4tqYakUcbY" />
+    
+    <link rel="canonical" href="https://infogempa.hidz-fun.my.id/" />
+    
     <link rel="icon" type="image/png" href="favi.png">
     <link rel="apple-touch-icon" href="favi.png">
-    <meta name="description" content="Pusat Info Gempa Indonesia - Pantau data gempa bumi terbaru, real-time dari BMKG. Informasi akurat mengenai magnitudo, lokasi, dan potensi tsunami.">
+    <meta name="description" content="Pusat Info Gempa Indonesia - Layanan pantauan seismik real-time dari BMKG. Dapatkan info magnitudo, lokasi gempa, dan peringatan tsunami secara akurat.">
     <meta name="keywords" content="info gempa, gempa hari ini, bmkg, gempa bumi terbaru, pusat info gempa indonesia, cek gempa, magnitudo gempa">
     <meta name="author" content="HidzzY">
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
@@ -22,8 +24,7 @@
     <style>
         /* Custom landing page specific styles */
         .app-logo-large { width: 170px; height: 140px; margin: 0 auto 25px; }
-    
-   .app-logo-large img { width: 170px; filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.15)); }
+        .app-logo-large img { width: 170px; filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.15)); }
         .landing-hero {
             padding: 60px 20px 40px;
             text-align: center;
@@ -127,53 +128,53 @@
                 <img src="./assets/img/light.png" id="main-logo" alt="Logo">
             </div>
             <h1 style="font-size: 32px; font-weight: 800; letter-spacing: -1px;">Info Gempa</h1>
-            <p style="color: var(--ios-text-secondary); margin-top: 10px; font-size: 17px;">Pantau aktivitas seismik Indonesia dengan presisi</p>
+            <p style="color: var(--ios-text-secondary); margin-top: 10px; font-size: 17px;">Pantau setiap aktivitas gempa di Indonesia dengan akurat</p>
             <a href="./pages/dash.html" class="ios-button ios-button-primary ios-button-full" style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                <span>Menuju Dashboard</span>
+                <span>Buka Dashboard</span>
                 <i class="fas fa-arrow-right"></i>
             </a>
         </header>
 
         <section class="info-section">
-            <h2 class="ios-section-title">Fungsi Aplikasi</h2>
+            <h2 class="ios-section-title">Fitur Aplikasi</h2>
             <div class="feature-grid">
                 <div class="feature-card">
                     <i class="fas fa-bolt"></i>
-                    <h3>Real-Time Data</h3>
-                    <p style="font-size: 14px; color: var(--ios-text-secondary);">Mengambil data langsung dari server BMKG Indonesia untuk update gempa terkini dalam hitungan detik.</p>
+                    <h3>Data Terkini</h3>
+                    <p style="font-size: 14px; color: var(--ios-text-secondary);">Sistem kami menarik data otomatis dari server BMKG agar Anda mendapat info gempa dalam waktu singkat.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-map-location-dot"></i>
-                    <h3>Visualisasi Peta</h3>
-                    <p style="font-size: 14px; color: var(--ios-text-secondary);">Pemetaan titik pusat gempa secara interaktif untuk mempermudah identifikasi wilayah terdampak.</p>
+                    <h3>Peta Interaktif</h3>
+                    <p style="font-size: 14px; color: var(--ios-text-secondary);">Visualisasi lokasi pusat gempa pada peta untuk memudahkan pemantauan titik koordinat terdampak.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-bullhorn"></i>
-                    <h3>Simulasi Alarm</h3>
-                    <p style="font-size: 14px; color: var(--ios-text-secondary);">Fitur edukasi sirene untuk melatih kesiapsiagaan menghadapi situasi darurat.</p>
+                    <h3>Sistem Alarm</h3>
+                    <p style="font-size: 14px; color: var(--ios-text-secondary);">Dilengkapi fitur simulasi suara sirene sebagai sarana edukasi kesiapsiagaan bencana.</p>
                 </div>
             </div>
         </section>
 
         <section class="info-section">
-            <h2 class="ios-section-title">Edukasi Gempa</h2>
+            <h2 class="ios-section-title">Edukasi Bencana</h2>
             <div class="education-card">
-                <h3 style="margin-bottom: 8px;"><i class="fas fa-circle-info" style="color: var(--ios-orange);"></i> Skala Magnitudo</h3>
-                <p style="font-size: 15px; line-height: 1.5;">Magnitudo mengukur energi yang dilepaskan di pusat gempa. Semakin tinggi angkanya, semakin besar potensi kerusakan yang ditimbulkan.</p>
+                <h3 style="margin-bottom: 8px;"><i class="fas fa-circle-info" style="color: var(--ios-orange);"></i> Skala Kekuatan</h3>
+                <p style="font-size: 15px; line-height: 1.5;">Satuan Magnitudo digunakan untuk mengukur besarnya energi gempa. Angka yang lebih besar menandakan potensi bahaya yang lebih tinggi.</p>
             </div>
             <div class="education-card">
-                <h3 style="margin-bottom: 8px;"><i class="fas fa-shield-heart" style="color: var(--ios-green);"></i> Langkah Mitigasi</h3>
+                <h3 style="margin-bottom: 8px;"><i class="fas fa-shield-heart" style="color: var(--ios-green);"></i> Panduan Mitigasi</h3>
                 <ul style="font-size: 15px; line-height: 1.8; padding-left: 20px;">
-                    <li>Jangan panik, cari perlindungan di bawah meja.</li>
-                    <li>Jauhi kaca dan bangunan yang berpotensi runtuh.</li>
-                    <li>Jika di luar, cari area terbuka yang jauh dari tiang listrik.</li>
+                    <li>Tetap tenang dan lindungi kepala Anda di bawah meja.</li>
+                    <li>Hindari berada di dekat kaca atau benda yang mudah jatuh.</li>
+                    <li>Segera menuju ke tanah lapang jika Anda berada di luar ruangan.</li>
                 </ul>
             </div>
         </section>
 
         <section class="contact-section">
             <h2 style="text-align: center; margin-bottom: 5px;">Developer</h2>
-            <p style="text-align: center; color: var(--ios-text-secondary); font-size: 14px;">Hubungi saya untuk kolaborasi atau menyampaikan feedback!</p>
+            <p style="text-align: center; color: var(--ios-text-secondary); font-size: 14px;">Silakan hubungi saya untuk saran atau keperluan kerjasama lainnya!</p>
             
             <div class="social-links">
                 <a href="mailto:wahidrahmannn1324@gmail.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
@@ -184,7 +185,7 @@
         </section>
 
         <footer class="ios-footer">
-            <p>&copy; 2026 Muhammad Wahid. All rights reserved.</p>
+            <p>&copy; 2026 Muhammad Wahid. Seluruh hak cipta dilindungi.</p>
         </footer>
 
         
